@@ -1,23 +1,20 @@
 package wal.internal
 
 import cats.effect._
-import cats.implicits._
 import munit.CatsEffectSuite
 
 class StoreTest extends CatsEffectSuite {
 
-  val createStore = Store.make[IO]("wal-test")
-  val lenWidth    = 8L
-
+  val lenWidth   = 8L
   val entry      = "First Log Entry"
   val entryBytes = entry.getBytes
   val width      = entryBytes.length + lenWidth
 
-  val entries = (1 to 100).map(i => s"entry-$i".getBytes).toList
+  def createStore(filename: String) = Store.make[IO](filename)
 
   test("append") {
     for {
-      store   <- createStore
+      store   <- createStore("append-test-store")
       result1 <- store.append(entryBytes)
       result2 <- store.append(entryBytes)
       result3 <- store.append(entryBytes)
@@ -30,7 +27,12 @@ class StoreTest extends CatsEffectSuite {
 
   test("read") {
     for {
-      store   <- createStore
+      store <- createStore("read-test-store")
+
+      _ <- store.append(entryBytes)
+      _ <- store.append(entryBytes)
+      _ <- store.append(entryBytes)
+
       result1 <- store.read(0)
       result2 <- store.read(1 * width)
       result3 <- store.read(2 * width)

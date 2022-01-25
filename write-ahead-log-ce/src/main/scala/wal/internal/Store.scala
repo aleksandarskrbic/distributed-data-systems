@@ -39,10 +39,10 @@ final class DiskStore[F[_]](
       size      = content.length.toLong
       _        <- writeRecordLength(size)
       _        <- writeRecord(content)
-      end       = size + lenWidth
-      _        <- sizeRef.update(_ + end)
+      written   = size + lenWidth
+      _        <- sizeRef.update(_ + written)
       _        <- semaphore.release
-    } yield AppendResult(end, position)
+    } yield AppendResult(written, position)
 
   private def writeRecordLength(length: Long): F[Unit] =
     F.delay(file.writeLong(length))
