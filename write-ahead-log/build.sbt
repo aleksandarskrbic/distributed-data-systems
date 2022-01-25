@@ -1,7 +1,7 @@
-name := "write-ahead-log"
+name := "write-ahead-log-ce"
 version := "0.1"
 
-lazy val `write-ahead-log` = project
+lazy val `write-ahead-log-ce` = project
   .in(file("."))
   .settings(
     scalaVersion := "2.13.7",
