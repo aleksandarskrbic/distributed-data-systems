@@ -1,0 +1,10 @@
+.bsp
+.idea
+**/target/**
+**/.DS_Store/**
+**/resources/**
+.gradle
+gradle
+gradlew
+gradlew.bat
+build
