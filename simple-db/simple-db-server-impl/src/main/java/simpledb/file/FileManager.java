@@ -60,12 +60,12 @@ public class FileManager {
     public synchronized BlockId append(String filename) {
         int newBlockNumber = length(filename);
         final BlockId blockId = new BlockId(filename, newBlockNumber);
-        byte[] b = new byte[blockSize];
+        byte[] bytes = new byte[blockSize];
 
         try {
             final RandomAccessFile file = getFile(blockId.filename());
             file.seek(blockId.blockNumber() * blockSize);
-            file.write(b);
+            file.write(bytes);
         }
         catch (final IOException e) {
             throw new RuntimeException("Cannot append block" + blockId);
