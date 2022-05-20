@@ -7,7 +7,7 @@ import java.nio.charset.StandardCharsets;
 public class Page {
     public static Charset CHARSET = StandardCharsets.US_ASCII;
 
-    private ByteBuffer buffer;
+    private final ByteBuffer buffer;
 
     // Used by BufferManager for creating data buffers
     public Page(int blockSize) {
@@ -57,7 +57,7 @@ public class Page {
         return Integer.BYTES + (strlen * bytesPerChar);
     }
 
-    // a package private method, needed by FileManager
+    // Package private method, needed by FileManager
     ByteBuffer contents() {
         buffer.position(0);
         return buffer;
