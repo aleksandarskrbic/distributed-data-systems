@@ -9,9 +9,9 @@ import java.util.HashMap;
 
 // Should create only one instance per SimpleDB
 public class FileManager {
-    private File dbDirectory;
-    private int blockSize;
-    private boolean isNew;
+    private final File dbDirectory;
+    private final int blockSize;
+    private final boolean isNew;
     private final Map<String, RandomAccessFile> openFiles = new HashMap<>();
 
     public FileManager(File dbDirectory, int blockSize) {
